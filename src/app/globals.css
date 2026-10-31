@@ -1,0 +1,192 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #f6f5f0;
+  --foreground: #20211e;
+  --card: #ffffff;
+  --muted: #eeede7;
+  --muted-foreground: #70736b;
+  --border: #deded5;
+  --primary: #b9f36b;
+  --primary-foreground: #17200c;
+  --ring: #6e9c35;
+}
+
+.dark {
+  --background: #24221c;
+  --foreground: #f3f3ec;
+  --card: #121512;
+  --muted: #1b201b;
+  --muted-foreground: #a0a69d;
+  --border: #2a3029;
+  --primary: #c5f477;
+  --primary-foreground: #12170b;
+  --ring: #c5f477;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-ring: var(--ring);
+  --font-sans: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+::selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.page-grid {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--foreground) 5%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--foreground) 5%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 42px 42px;
+}
+.display-font {
+  letter-spacing: -0.075em;
+}
+.text-balance {
+  text-wrap: balance;
+}
+.project-art {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.project-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(130deg, transparent 20%, rgba(0, 0, 0, 0.18));
+}
+.art-one {
+  background: linear-gradient(135deg, #d9e7c8, #9fb38b 52%, #687a5a);
+}
+.art-two {
+  background: linear-gradient(135deg, #f2d8c8, #c77d62 55%, #803f38);
+}
+.art-three {
+  background: linear-gradient(135deg, #d2d8f1, #818dc8 50%, #4b4c79);
+}
+.art-four {
+  background: linear-gradient(135deg, #f0e7be, #d5bd6e 55%, #867644);
+}
+.project-mock {
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.16);
+  transform: rotate(-5deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+/* Smooth theme crossfade via View Transitions API */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+}
+
+/* Prevent the default crossfade flicker on the html element */
+::view-transition-old(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) {
+  animation: fade-in 0.5s ease-in-out;
+  mix-blend-mode: normal;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+/* Dark mode: expand dark from click point */
+.dark::view-transition-new(root) {
+  animation: circle-in 0.6s ease-in-out;
+}
+.dark::view-transition-old(root) {
+  animation: none;
+}
+
+/* Light mode: expand light from click point */
+:root:not(.dark)::view-transition-new(root) {
+  animation: circle-in 0.6s ease-in-out;
+}
+:root:not(.dark)::view-transition-old(root) {
+  animation: none;
+}
+
+@keyframes circle-in {
+  from {
+    clip-path: circle(0% at var(--x, 50%) var(--y, 50%));
+  }
+  to {
+    clip-path: circle(150% at var(--x, 50%) var(--y, 50%));
+  }
+}
