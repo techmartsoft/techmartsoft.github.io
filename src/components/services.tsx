@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Link from "next/link";
 import {
-  ArrowRight,
   Braces,
   Code2,
   LifeBuoy,
@@ -16,8 +14,6 @@ import {
 } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-import { Button } from "@/components/ui/button";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -267,7 +263,7 @@ export default function ServicesPage() {
       {/* Background decoration */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.25)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.25)_1px,transparent_1px)] bg-[size:64px_64px] opacity-40"
+        className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.25)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.25)_1px,transparent_1px)] bg-size-[64px_64px] opacity-40"
       />
 
       {/* Services grid */}
@@ -300,7 +296,7 @@ export default function ServicesPage() {
               return (
                 <article
                   key={service.number}
-                  className="service-card group relative flex min-h-[300px] flex-col overflow-hidden rounded-md border-2 border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#d31c31] hover:shadow-[8px_8px_0px_rgba(211,28,49,0.2)] sm:p-8"
+                  className="service-card group relative flex min-h-75 flex-col overflow-hidden rounded-md border-2 border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#d31c31] hover:shadow-[8px_8px_0px_rgba(211,28,49,0.2)] sm:p-8"
                 >
                   {/* Animated Magnetic Glow */}
                   <div

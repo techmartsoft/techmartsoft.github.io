@@ -224,7 +224,7 @@ export function Navbar() {
                 >
                   {link.label}
                   <span
-                    className={`absolute inset-x-0 -bottom-0.5 h-[2px] origin-left bg-[#d31c31] transition-transform duration-300 ${
+                    className={`absolute inset-x-0 -bottom-0.5 h-0.5 origin-left bg-[#d31c31] transition-transform duration-300 ${
                       active ? "scale-x-100" : "scale-x-0"
                     }`}
                   />

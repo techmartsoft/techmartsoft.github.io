@@ -109,7 +109,7 @@ export function Hero() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
       >
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border)_/_0.35)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)_/_0.35)_1px,transparent_1px)] bg-[size:42px_42px] opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent_85%)] sm:bg-[size:56px_56px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.35)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.35)_1px,transparent_1px)] bg-size-[42px_42px] opacity-40 mask-[linear-gradient(to_bottom,black,transparent_85%)] sm:bg-size-[56px_56px]" />
 
         <div className="hero-orb absolute -right-32 top-20 h-72 w-72 rounded-full bg-[#d31c31]/10 blur-[100px] sm:h-96 sm:w-96" />
 
@@ -187,7 +187,7 @@ export function Hero() {
 
         {/* Right: Decorative code interface */}
         <div className="hero-visual relative mx-auto w-full max-w-lg lg:max-w-none">
-          <div className="absolute -inset-5 rounded-[2rem] bg-[#d31c31]/5 blur-2xl sm:-inset-8" />
+          <div className="absolute -inset-5 rounded-4xl bg-[#d31c31]/5 blur-2xl sm:-inset-8" />
 
           <div className="relative overflow-hidden rounded-2xl border border-border bg-card/90 shadow-2xl shadow-black/10 backdrop-blur-xl">
             {/* Window header */}

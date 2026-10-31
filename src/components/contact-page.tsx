@@ -214,7 +214,7 @@ export default function ContactPage() {
       {/* Background Grid Pattern */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.25)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.25)_1px,transparent_1px)] bg-[size:64px_64px] opacity-40"
+        className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.25)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.25)_1px,transparent_1px)] bg-size-[64px_64px] opacity-40"
       />
 
       <div className="relative mx-auto max-w-7xl px-6 py-20 sm:px-10 sm:py-24 lg:px-16">
@@ -263,7 +263,7 @@ export default function ContactPage() {
 
           {/* Right Column: Contact Form */}
           <div className="contact-card lg:col-span-3">
-            <div className="relative overflow-hidden border-2 border-border bg-card p-6 sm:p-10 min-h-[500px] flex items-center">
+            <div className="relative overflow-hidden border-2 border-border bg-card p-6 sm:p-10 min-h-125 flex items-center">
               {/* Form */}
               <form
                 ref={formRef}
