@@ -182,7 +182,7 @@ export function Footer() {
                   <span className="sr-only">LinkedIn</span>
                 </a>
                 <a
-                  href="https://github.com"
+                  href="https://techmartsoft.github.io"
                   target="_blank"
                   rel="noreferrer"
                   className="flex h-10 w-10 items-center justify-center border-2 border-border bg-background text-muted-foreground transition-colors hover:border-[#d31c31] hover:bg-[#d31c31] hover:text-white"
