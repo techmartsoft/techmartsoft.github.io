@@ -13,11 +13,7 @@ import {
   Layers3,
 } from "lucide-react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+import { useGSAP } from "@gsap/react";
 
 const services = [
   {
@@ -124,132 +120,108 @@ const process = [
 export default function ServicesPage() {
   const pageRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
+  useGSAP(() => {
     const page = pageRef.current;
     if (!page) return;
 
     const ctx = gsap.context(() => {
-      // 1. Header & Process Entrance Animations
+      // Animate section headings
       const headers = page.querySelectorAll(".animate-header");
-      gsap.fromTo(
-        headers,
-        { y: 30, autoAlpha: 0 },
-        {
-          y: 0,
-          autoAlpha: 1,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: page,
-            start: "top 80%",
-            once: true,
-          },
-          clearProps: "opacity,visibility,transform",
-        },
-      );
 
-      // 2. Service Cards Scroll Reveal
+      gsap.from(headers, {
+        y: 20,
+        duration: 0.7,
+        stagger: 0.1,
+        ease: "power3.out",
+        clearProps: "transform",
+      });
+
+      // Animate service cards
       const cards = page.querySelectorAll(".service-card");
-      gsap.fromTo(
-        cards,
-        { y: 40, autoAlpha: 0 },
-        {
-          y: 0,
-          autoAlpha: 1,
-          duration: 0.7,
-          stagger: 0.08,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".services-grid",
-            start: "top 85%",
-            once: true,
-          },
-          clearProps: "opacity,visibility,transform",
-        },
-      );
 
-      // 3. Process Steps Scroll Reveal
+      gsap.from(cards, {
+        y: 25,
+        duration: 0.65,
+        stagger: 0.07,
+        delay: 0.15,
+        ease: "power3.out",
+        clearProps: "transform",
+      });
+
+      // Animate process steps
       const steps = page.querySelectorAll(".process-step");
-      gsap.fromTo(
-        steps,
-        { y: 30, autoAlpha: 0 },
-        {
-          y: 0,
-          autoAlpha: 1,
-          duration: 0.7,
-          stagger: 0.15,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".process-grid",
-            start: "top 85%",
-            once: true,
-          },
-          clearProps: "opacity,visibility,transform",
-        },
-      );
 
-      // 4. Magnetic Glow Effect for Service Cards
-      const cardsWithGlow = page.querySelectorAll(".service-card");
-      cardsWithGlow.forEach((card) => {
-        const glow = card.querySelector(".card-glow");
+      gsap.from(steps, {
+        y: 20,
+        duration: 0.6,
+        stagger: 0.1,
+        delay: 0.3,
+        ease: "power3.out",
+        clearProps: "transform",
+      });
 
-        // Only run on devices with a mouse
-        if (window.matchMedia("(pointer: fine)").matches && glow) {
-          const onMouseMove = (e: MouseEvent) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+      // Service card glow and icon interactions
+      const cleanups: (() => void)[] = [];
 
-            // Move the glow to follow cursor
-            gsap.to(glow, {
-              x: x - 100, // Offset for glow width
-              y: y - 100,
-              duration: 0.6,
-              ease: "power2.out",
+      if (window.matchMedia("(pointer: fine)").matches) {
+        cards.forEach((card) => {
+          const glow = card.querySelector(".card-glow");
+          const icon = card.querySelector(".service-icon");
+
+          if (glow) {
+            const onMouseMove = (e: Event) => {
+              const mouse = e as MouseEvent;
+              const rect = card.getBoundingClientRect();
+
+              gsap.to(glow, {
+                x: mouse.clientX - rect.left - 100,
+                y: mouse.clientY - rect.top - 100,
+                duration: 0.5,
+                ease: "power2.out",
+              });
+            };
+
+            card.addEventListener("mousemove", onMouseMove);
+
+            cleanups.push(() => {
+              card.removeEventListener("mousemove", onMouseMove);
             });
-          };
+          }
 
-          card.addEventListener("mousemove", onMouseMove as EventListener);
+          if (icon) {
+            const enter = () => {
+              gsap.to(icon, {
+                scale: 1.12,
+                rotate: -5,
+                duration: 0.3,
+                ease: "back.out(2)",
+              });
+            };
 
-          // Optional cleanup if card is destroyed
-          return () => {
-            card.removeEventListener("mousemove", onMouseMove as EventListener);
-          };
-        }
-      });
+            const leave = () => {
+              gsap.to(icon, {
+                scale: 1,
+                rotate: 0,
+                duration: 0.3,
+                ease: "power2.out",
+              });
+            };
 
-      // 5. Icon Pop on Hover
-      const icons = page.querySelectorAll(".service-icon");
-      icons.forEach((icon) => {
-        const card = icon.closest(".service-card");
-        if (!card) return;
+            card.addEventListener("mouseenter", enter);
+            card.addEventListener("mouseleave", leave);
 
-        const enter = () => {
-          gsap.to(icon, {
-            scale: 1.15,
-            rotate: -5,
-            duration: 0.3,
-            ease: "back.out(2)",
-          });
-        };
-        const leave = () => {
-          gsap.to(icon, {
-            scale: 1,
-            rotate: 0,
-            duration: 0.3,
-            ease: "power2.out",
-          });
-        };
+            cleanups.push(() => {
+              card.removeEventListener("mouseenter", enter);
+              card.removeEventListener("mouseleave", leave);
+            });
+          }
+        });
+      }
 
-        card.addEventListener("mouseenter", enter);
-        card.addEventListener("mouseleave", leave);
-
-        return () => {
-          card.removeEventListener("mouseenter", enter);
-          card.removeEventListener("mouseleave", leave);
-        };
-      });
+      // Save event-listener cleanup
+      return () => {
+        cleanups.forEach((cleanup) => cleanup());
+      };
     }, page);
 
     return () => ctx.revert();
