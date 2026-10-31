@@ -1,9 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "export", // Outputs static HTML/CSS/JS to an 'out' folder
+  output: "export", // Generates static HTML in the 'out' folder
+  basePath: "", // Replace with your GitHub repo name
   images: {
-    unoptimized: true, // Required because GitHub Pages doesn't have an image optimization server
+    unoptimized: true, // Required because GitHub Pages has no image server
   },
+  trailingSlash: true, // Helps avoid 404s on subpages
 };
 export default nextConfig;
