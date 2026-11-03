@@ -223,9 +223,7 @@ export function Footer() {
       {/* Bottom Bar */}
       <div className="relative z-10 border-t-2 border-border bg-background">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-6 text-xs text-muted-foreground sm:flex-row sm:px-10 lg:px-16">
-          <p>
-            © {new Date().getFullYear()} Tech Mart Soft. All rights reserved.
-          </p>
+          <p>©2023 Tech Mart Soft. All rights reserved.</p>
         </div>
       </div>
     </footer>
