@@ -226,16 +226,6 @@ export function Footer() {
           <p>
             © {new Date().getFullYear()} Tech Mart Soft. All rights reserved.
           </p>
-
-          <div className="flex items-center gap-6">
-            <a
-              href="mailto:hello@techmartsoft.com"
-              className="flex items-center gap-2 font-bold uppercase tracking-wider transition-colors hover:text-[#d31c31]"
-            >
-              <Mail className="h-3 w-3" />
-              hello@techmartsoft.com
-            </a>
-          </div>
         </div>
       </div>
     </footer>
