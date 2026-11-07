@@ -22,8 +22,8 @@ const contactInfo = [
   {
     icon: Mail,
     label: "Email us",
-    value: "hello@techmartsoft.com",
-    href: "mailto:hello@techmartsoft.com",
+    value: "techmartsoftaf@gmail.com",
+    href: "mailto:techmartsoftaf@gmail.com",
   },
   {
     icon: Phone,
@@ -31,12 +31,7 @@ const contactInfo = [
     value: "+61 469818793",
     href: "tel:+61469818793",
   },
-  {
-    icon: MapPin,
-    label: "Visit us",
-    value: "123 Innovation Drive, Tech City",
-    href: "#",
-  },
+  
 ];
 
 export default function ContactPage() {
