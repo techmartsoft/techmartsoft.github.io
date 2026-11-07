@@ -28,8 +28,8 @@ const contactInfo = [
   {
     icon: Phone,
     label: "Call us",
-    value: "+1 (555) 123-4567",
-    href: "tel:+15551234567",
+    value: "+61 469818793",
+    href: "tel:+61469818793",
   },
   {
     icon: MapPin,

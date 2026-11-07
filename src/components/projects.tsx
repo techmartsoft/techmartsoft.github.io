@@ -20,24 +20,24 @@ if (typeof window !== "undefined") {
 const projects = [
   {
     number: "01",
-    title: "Digital Experiences",
+    title: "Central Tyres Ltd.",
     category: "Web & Apps",
     type: "Web & Apps",
     description:
       "Responsive websites and web applications built around usability and performance.",
-    tech: ["Next.js", "React", "Tailwind CSS"],
-    image: "/projects/web-project.jpg",
+    tech: ["Next.js", "React.js", "Tailwind CSS", "Postgre SQL", "Vercel"],
+    image: "CentralTyres.png",
     year: "2026",
   },
   {
     number: "02",
-    title: "Brand Identity",
-    category: "Logo Design",
-    type: "Logo Design",
+    title: "Dental Clinic Management System",
+    category: "Desktop App",
+    type: "Desktop App",
     description:
-      "Distinctive logo concepts and visual identities designed to make brands recognizable.",
-    tech: ["Wordmark", "Monogram", "Branding"],
-    image: "/projects/logo-project.jpg",
+      "A modern Dental Clinic Management System designed to simplify daily clinic operations, including patient records, appointment scheduling, treatment tracking, and billing, through an efficient and user-friendly interface.",
+    tech: ["React.js", "Express.js", "Tauri", "TailwindCSS", "Shadcn-UI"],
+    image: "DentalClinic.png",
     year: "2026",
   },
   {
@@ -48,18 +48,18 @@ const projects = [
     description:
       "Bold promotional posters and graphic designs for campaigns, products, and events.",
     tech: ["Typography", "Composition", "Print Design"],
-    image: "/projects/poster-project.jpg",
+    image: "Launch-Book.png",
     year: "2026",
   },
   {
     number: "04",
-    title: "Creative Artwork",
-    category: "Artwork",
-    type: "Artwork",
+    title: "Mobile App",
+    category: "Mobile App",
+    type: "Mobile App",
     description:
-      "Original digital artwork and illustrations combining visual storytelling with creative expression.",
-    tech: ["Digital Art", "Illustration", "Visual Design"],
-    image: "/projects/artwork-project.jpg",
+      "A modern music streaming app featuring music discovery, playlist management, and an intuitive interface for a seamless listening experience.",
+    tech: ["ReactNative", "Expo", "NativeWind","SQLlite"],
+    image: "Music-App.png",
     year: "2026",
   },
   {
@@ -68,9 +68,9 @@ const projects = [
     category: "UI/UX Design",
     type: "UI/UX Design",
     description:
-      "Thoughtful interface layouts and user experiences for websites and digital products.",
+      "A modern UI/UX design featuring intuitive navigation, responsive layouts, and user-friendly interfaces for a seamless digital experience.",
     tech: ["Figma", "Prototyping", "Design Systems"],
-    image: "/projects/ui-project.jpg",
+    image: "Interface-Design.png",
     year: "2026",
   },
 ];
@@ -78,10 +78,12 @@ const projects = [
 const filters = [
   "All",
   "Web & Apps",
-  "Logo Design",
-  "Posters & Graphics",
-  "Artwork",
+  "Desktop App",
+  "Mobile App",
   "UI/UX Design",
+  "Logo Design",
+  
+  
 ];
 
 export default function ProjectsPage() {
@@ -341,7 +343,7 @@ export default function ProjectsPage() {
                   src={project.image}
                   alt={`${project.title} project preview`}
                   loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="h-full w-full object-stretch transition-transform duration-700 group-hover:scale-105"
                 />
 
                 <div className="absolute inset-0 bg-black/25 transition-colors duration-300 group-hover:bg-black/10" />

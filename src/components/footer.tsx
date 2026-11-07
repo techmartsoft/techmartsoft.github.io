@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useTheme } from "next-themes";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowUpRight, Github, Linkedin, Twitter, Mail } from "lucide-react";
+import { ArrowUpRight, Github, Linkedin, Twitter, Mail, Facebook } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -164,13 +164,13 @@ export function Footer() {
 
               <div className="mt-8 flex gap-3">
                 <a
-                  href="https://twitter.com"
+                  href="https://facebook.com"
                   target="_blank"
                   rel="noreferrer"
                   className="flex h-10 w-10 items-center justify-center border-2 border-border bg-background text-muted-foreground transition-colors hover:border-[#d31c31] hover:bg-[#d31c31] hover:text-white"
                 >
-                  <Twitter className="h-4 w-4" />
-                  <span className="sr-only">Twitter</span>
+                  <Facebook className="h-4 w-4" />
+                  <span className="sr-only">Facebook</span>
                 </a>
                 <a
                   href="https://linkedin.com"
