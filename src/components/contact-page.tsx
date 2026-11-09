@@ -164,7 +164,10 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     const formData = new FormData(form);
 
     // Replace this with your actual Web3Forms access key
-    formData.append("access_key", "b6e05e76-0ba9-41c5-acc8-02be46ea6e8e");
+    formData.append(
+  "access_key",
+  process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY!
+);
     formData.append("from_name", "TechMart Website");
 
     const response = await fetch("https://api.web3forms.com/submit", {
