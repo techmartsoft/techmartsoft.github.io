@@ -40,6 +40,7 @@ export default function ContactPage() {
   const btnRef = useRef<HTMLButtonElement>(null);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
@@ -140,65 +141,95 @@ export default function ContactPage() {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formRef.current || !btnRef.current) return;
+  
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
 
-    // Button press effect
+  const form = formRef.current;
+  if (!form || isSubmitting) return;
+
+  setIsSubmitting(true);
+  setSubmitError(null);
+
+  if (btnRef.current) {
     gsap.to(btnRef.current, {
       scale: 0.95,
       duration: 0.1,
       yoyo: true,
       repeat: 1,
     });
+  }
 
-    setIsSubmitting(true);
+  try {
+    const formData = new FormData(form);
 
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
+    // Replace this with your actual Web3Forms access key
+    formData.append("access_key", "b6e05e76-0ba9-41c5-acc8-02be46ea6e8e");
+    formData.append("from_name", "TechMart Website");
 
-      // Create a master timeline for the success transition
-      const tl = gsap.timeline();
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData,
+    });
 
-      tl.to(formRef.current, {
-        y: -20,
-        opacity: 0,
-        duration: 0.3,
-        ease: "power2.in",
-        onComplete: () => {
-          if (formRef.current) formRef.current.style.display = "none";
+    const data = await response.json();
+
+    if (!response.ok || !data.success) {
+      throw new Error(
+        data.message || "Failed to send message."
+      );
+    }
+
+    // Success animation
+    const tl = gsap.timeline();
+
+    tl.to(form, {
+      y: -20,
+      opacity: 0,
+      duration: 0.3,
+      ease: "power2.in",
+      onComplete: () => {
+        form.style.display = "none";
+      },
+    })
+      .set(".success-message", { display: "flex" })
+      .fromTo(
+        ".success-message",
+        { y: 20, opacity: 0, scale: 0.95 },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.5,
+          ease: "back.out(1.5)",
+        }
+      )
+      .fromTo(
+        ".success-element",
+        { y: 15, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.4,
+          stagger: 0.1,
+          ease: "power2.out",
         },
-      })
-        // Set up success message before animating in
-        .set(".success-message", { display: "flex" })
-        .fromTo(
-          ".success-message",
-          { y: 20, opacity: 0, scale: 0.95 },
-          {
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 0.5,
-            ease: "back.out(1.5)",
-          },
-        )
-        // Stagger the inner elements of the success message
-        .fromTo(
-          ".success-element",
-          { y: 15, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.4,
-            stagger: 0.1,
-            ease: "power2.out",
-          },
-          "-=0.3",
-        );
-    }, 1500);
-  };
+        "-=0.3"
+      );
+
+  } catch (error) {
+    console.error("Contact form error:", error);
+
+    setSubmitError(
+      error instanceof Error
+        ? error.message
+        : "Something went wrong. Please try again."
+    );
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   return (
     <main
@@ -277,8 +308,9 @@ export default function ContactPage() {
                     <input
                       type="text"
                       id="name"
+                      name="name"
                       required
-                      placeholder="John Doe"
+                      placeholder="Faiz"
                       className="contact-input h-12 w-full border-2 border-border bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-[#d31c31] focus:outline-none transition-colors"
                     />
                   </div>
@@ -293,6 +325,7 @@ export default function ContactPage() {
                     <input
                       type="email"
                       id="email"
+                      name="email"
                       required
                       placeholder="john@example.com"
                       className="contact-input h-12 w-full border-2 border-border bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-[#d31c31] focus:outline-none transition-colors"
@@ -311,6 +344,7 @@ export default function ContactPage() {
                   <input
                     type="text"
                     id="subject"
+                    name="subject"
                     required
                     placeholder="Project Inquiry"
                     className="contact-input h-12 w-full border-2 border-border bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-[#d31c31] focus:outline-none transition-colors"
@@ -327,12 +361,18 @@ export default function ContactPage() {
                   </label>
                   <textarea
                     id="message"
+                    name="message"
                     required
                     rows={5}
                     placeholder="Tell us about your project..."
                     className="contact-input w-full resize-none border-2 border-border bg-background p-4 text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-[#d31c31] focus:outline-none transition-colors"
                   />
                 </div>
+                {submitError && (
+  <p role="alert" className="text-sm text-red-500">
+    {submitError}
+  </p>
+)}
 
                 {/* Submit Button */}
                 <Button

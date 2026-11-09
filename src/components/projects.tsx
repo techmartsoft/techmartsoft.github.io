@@ -286,7 +286,7 @@ export default function ProjectsPage() {
               The portfolio
             </p>
             <h2 className="text-3xl font-black uppercase tracking-tight sm:text-5xl">
-              Selected projects
+              Recent projects
             </h2>
           </div>
 

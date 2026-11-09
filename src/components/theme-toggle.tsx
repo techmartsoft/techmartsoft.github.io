@@ -166,8 +166,8 @@ export function ThemeToggle() {
         aria-label="Toggle theme"
         className="relative overflow-hidden"
       >
-        <Sun ref={sunRef} className="absolute h-5 w-5" />
-        <Moon ref={moonRef} className="absolute h-5 w-5" />
+        <Sun ref={moonRef} className="absolute h-5 w-5" />
+        <Moon ref={sunRef} className="absolute h-5 w-5" />
       </Button>
     </>
   );
