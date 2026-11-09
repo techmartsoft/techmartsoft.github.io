@@ -1,3 +1,4 @@
+
 name: Deploy Next.js to GitHub Pages
 
 on:
@@ -36,6 +37,8 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build with Next.js
+        env:
+          NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY: ${{ secrets.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY }}
         run: pnpm run build
 
       - name: Upload artifact
