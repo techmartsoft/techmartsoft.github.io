@@ -162,8 +162,6 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
   try {
     const formData = new FormData(form);
-
-    // Replace this with your actual Web3Forms access key
     formData.append(
   "access_key",
   process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY!
